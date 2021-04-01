@@ -22,7 +22,7 @@ const emitter = new EventEmitter();
 // console.log(EventEmitter);
 // console.log(emitter);
 // on == addlistner
-emitter.on("msgLogged", function(arg){
+emitter.on("msgLogged", (arg)=>{
     console.log('got a new event');
     console.log(arg);
 });
