@@ -33,22 +33,29 @@ app.get('/api/courses/:id/:subject/:name', (req, res)=>{
     
 });
 app.post('/api/courses', (req, res)=>{
-    if( undefined === req.body.subject  || req.body.subject.length <2)
-    {
-        res.status(400).send('error in subject name'+ req.body.subject);
-        return;
-    }
+    
+    // if( undefined === req.body.subject  || req.body.subject.length <2)
+    // {
+    //     res.status(400).send('error in subject name'+ req.body.subject);
+    //     return;
+    // }
     const course={
          id : courses.length+1,
           subject: req.body.subject
         
     };
-    const schema={
+    const schema=Joi.object({
         subject : Joi.string().min(2).required()
-    };
-    // const result = Joi.valid(req.body, schema);
-    // console.log(result);
-    courses.push(course);
+    });
+    const result = schema.validate(req.body);
+    console.log(result);
+    if( result.error)
+    {   
+        res.status(400).send( result);
+        return;
+    }
+    // var course=schema
+    courses.push(course); 
     res.send(course);
 });
 //port
