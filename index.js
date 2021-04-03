@@ -14,7 +14,7 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/api/courses', (req, res)=>{
-    res.send("asdasdasdasd");
+    res.send(courses);
 });
 app.get('/api/courses/:id/:subject', (req, res)=>{
     //var para=req.params;
@@ -44,18 +44,35 @@ app.post('/api/courses', (req, res)=>{
           subject: req.body.subject
         
     };
-    const schema=Joi.object({
-        subject : Joi.string().min(2).required()
-    });
-    const result = schema.validate(req.body);
-    console.log(result);
+    
+    const result= validateCourse(req.body);
+    // console.log(result);
     if( result.error)
     {   
-        res.status(400).send( result);
+        res.status(400).send( result.error);
         return;
     }
     // var course=schema
     courses.push(course); 
+    res.send(course);
+});
+
+app.put('/api/courses/:id', (req, res)=>{
+    const course=courses.find( function(c){
+        return  c.id === parseInt(req.params.id) ;
+     });
+     console.log(course);
+    const result= validateCourse(course);
+    console.log(result);
+    if( result.error || !course )
+    {   
+        res.status(400).send( result.error);
+        return;
+    }
+    // var course=schema
+    // courses.push(course); 
+    console.log("debug");
+    course.subject=req.body.subject;
     res.send(course);
 });
 //port
@@ -64,3 +81,13 @@ app.listen(port, ()=>{
     console.log(` listeing on port ${port}`);
 });
 
+function validateCourse(course)
+{
+    const schema=Joi.object({
+        //  id: Joi.parseInt(),
+        id:Joi.number(),
+        subject : Joi.string().min(2).required()
+    });
+    const result = schema.validate(course);
+    return result;
+}
