@@ -1,3 +1,6 @@
+const startupDebug=require('debug')('app:startup');
+const dbDebug=require('debug')('app:db');
+
 const config=require('config');
 const helmet =require('helmet');
 const Joi=require('joi');
@@ -10,7 +13,6 @@ app.use(express.static('public'));
 const morgan = require('morgan')
 //3rd party middleware
 app.use(helmet());
-
 
 
 
@@ -28,9 +30,11 @@ console.log(app.get('env'));
 if( app.get('env') === 'development')
 {
     app.use(morgan('tiny'));
-    console.log('morgan enable');  
+    //console.log('morgan enable');  
+    startupDebug('morgan enable.....');
 }
-
+//db debuger
+dbDebug('connect to db');
 // configuration
 console.log('application name '+ config.get('name'));
 console.log('mail server '+ config.get('mail.host'));
