@@ -1,4 +1,4 @@
-
+const config=require('config');
 const helmet =require('helmet');
 const Joi=require('joi');
 const express= require('express');
@@ -30,6 +30,11 @@ if( app.get('env') === 'development')
     app.use(morgan('tiny'));
     console.log('morgan enable');  
 }
+
+// configuration
+console.log('application name '+ config.get('name'));
+console.log('mail server '+ config.get('mail.host'));
+
 
 const courses=[
     { id :1, subject : 'c1'},
