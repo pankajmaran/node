@@ -10,7 +10,9 @@ app.use(express.static('public'));
 const morgan = require('morgan')
 //3rd party middleware
 app.use(helmet());
-app.use(morgan('tiny'));
+
+
+
 
 //custom middle ware
 // app.use(function log(req, req, next)
@@ -19,8 +21,15 @@ app.use(morgan('tiny'));
 //     next();
 // });
  app.use(logger);
-// app.use()
+// app.use() 
+console.log( process.env.NODE_ENV); // undefined  
+console.log(app.get('env'));
 
+if( app.get('env') === 'development')
+{
+    app.use(morgan('tiny'));
+    console.log('morgan enable');  
+}
 
 const courses=[
     { id :1, subject : 'c1'},
