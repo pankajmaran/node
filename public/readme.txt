@@ -1,0 +1,1 @@
+hello...u r getting static content of public folder

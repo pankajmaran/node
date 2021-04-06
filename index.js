@@ -1,8 +1,27 @@
+
+const helmet =require('helmet');
 const Joi=require('joi');
 const express= require('express');
 const app= new express();
+const logger=require('./logger');
 app.use( express.json());
+app.use(express.urlencoded({extend: true}) );
+app.use(express.static('public'));
+const morgan = require('morgan')
+//3rd party middleware
+app.use(helmet());
+app.use(morgan('tiny'));
+
+//custom middle ware
+// app.use(function log(req, req, next)
+// {
+//     console.log('log...');
+//     next();
+// });
+ app.use(logger);
 // app.use()
+
+
 const courses=[
     { id :1, subject : 'c1'},
     { id :2, subject : 'c2'},
