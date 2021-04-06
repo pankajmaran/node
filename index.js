@@ -34,6 +34,7 @@ if( app.get('env') === 'development')
 // configuration
 console.log('application name '+ config.get('name'));
 console.log('mail server '+ config.get('mail.host'));
+console.log('mail pswd '+ config.get('mail.password'));
 
 
 const courses=[
