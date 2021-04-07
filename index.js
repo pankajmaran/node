@@ -6,11 +6,11 @@ const helmet =require('helmet');
 const Joi=require('joi');
 const express= require('express');
 const courses=require('./routes/courses');
-
+const home=require('./routes/home')
 const app= new express();
 
 
-const logger=require('./logger');
+const logger=require('./middleware/logger');
 app.use( express.json());
 app.use(express.urlencoded({extend: true}) );
 app.use(express.static('public'));
@@ -19,7 +19,7 @@ const morgan = require('morgan')
 app.use(helmet());
 
 app.use('/api/courses', courses);
-
+app.use('/', home);
 //custom middle ware
 // app.use(function log(req, req, next)
 // {
@@ -46,10 +46,6 @@ console.log('mail pswd '+ config.get('mail.password'));
 
 
 
-app.get('/', (req, res)=>{
-    // console.log('Heyyyy :)');
-    res.send('Heyyyy :::))) ');
-});
 
 
 //port
