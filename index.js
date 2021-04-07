@@ -42,7 +42,7 @@ dbDebug('connect to db');
 // configuration
 console.log('application name '+ config.get('name'));
 console.log('mail server '+ config.get('mail.host'));
-console.log('mail pswd '+ config.get('mail.password'));
+// console.log('mail pswd '+ config.get('mail.password'));
 
 
 
